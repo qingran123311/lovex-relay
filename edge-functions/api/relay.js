@@ -13,7 +13,7 @@ const CORS = {
   'Access-Control-Allow-Headers': '*',
 };
 const BOT_UA = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
-const PHONE_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+const PC_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
 
 export default function onRequest(context) {
   return handle(context.request);
@@ -31,7 +31,7 @@ async function handle(req) {
       redirect: 'follow',
       headers: {
         // 抖音的分享页只对爬虫露真数据，小红书正常手机 UA 即可
-        'User-Agent': /douyin/i.test(host) ? BOT_UA : PHONE_UA,
+        'User-Agent': /douyin/i.test(host) ? BOT_UA : PC_UA,  // 小红书用电脑版 UA 才有 og:image（手机版页面图藏在别处）
         'Accept': 'text/html,application/xhtml+xml,image/*,*/*;q=0.8',
         'Accept-Language': 'zh-CN,zh;q=0.9',
       },
